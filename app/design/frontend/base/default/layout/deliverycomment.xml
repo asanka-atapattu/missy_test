@@ -1,0 +1,22 @@
+<?xml version="1.0"?>  
+<!-- Add js/Css --> 
+<layout version="0.1.0">   
+    <checkout_onepage_index>
+        <reference name="head">
+            <action method="addItem"><type>skin_css</type><name>css/deliverycomment/jquery-ui.css</name><params/></action>
+            <action method="addItem"><type>skin_css</type><name>css/deliverycomment/comment.css</name><params/></action>
+            <action method="addJs"><script>deliverycomment/jquery-ui.js</script></action>
+        </reference>
+    </checkout_onepage_index>
+
+
+	<checkout_onepage_additional>
+        <!-- Mage_Checkout -->
+        <remove name="right"/>
+        <remove name="left"/>
+		<remove name="root" />
+
+        <block type="deliverycomment/shipping_method_additional" name="deliverycomment.coontent" output="toHtml" template="checkout/onepage/shipping_method/additional.phtml"/>
+    </checkout_onepage_additional>
+</layout>   
+	

@@ -1,0 +1,43 @@
+<?php
+$helper = Mage::helper('deliverycomment');
+
+?>
+<div class="delivery-date-wrap">
+    <h5><label for="delivery_date">Delivery Date</label></h5>
+
+    <div class="delivery-date-field">
+        <input readonly="readonly" type="text" id="delivery_date" name="delivery_date" class="input-text input-date" value="" />
+    </div>
+    <?php
+    $query ="";
+    $helper =  Mage::helper('deliverycomment');
+    $escape_dates = explode(",",$helper->getConfigData('off_week_days'));
+    if(count($escape_dates)==1){
+        $query = "day != ".$escape_dates[0];
+    }else{
+        $i = 1;
+        foreach ($escape_dates as $escape_date) {
+            if($i!=count($escape_dates)){
+                $query .= "day != ".$escape_date. "&&";
+            }else{
+                $query .= "day != ".$escape_date;
+            }
+
+            $i++;
+        }
+    }
+    ?>
+    <script>
+	//<![CDATA[
+        $j( function() {
+            $j( "#delivery_date" ).datepicker({
+                beforeShowDay: function(date) {
+                    var day = date.getDay();
+                    return [(<?php echo  $query ?>)];
+                },
+                minDate: 0,
+            });
+        });
+		//]]>
+    </script>
+</div>

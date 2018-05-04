@@ -1,0 +1,167 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Netstarter_DeliveryComment>
+      <version>0.1.0</version>
+    </Netstarter_DeliveryComment>
+  </modules>
+  <frontend>
+		<layout>
+		  <updates>
+			<deliverycomment>
+			  <file>deliverycomment.xml</file>
+			</deliverycomment>
+		  </updates>
+		</layout>
+		
+		    <events>
+	  <sales_quote_load_after> <!-- identifier of the event we want to catch -->
+        <observers>
+          <sales_quote_load_after_handler> <!-- identifier of the event handler -->
+            <type>singleton</type> <!-- class method call type; valid are model, object and singleton -->
+            <class>deliverycomment/observer</class> <!-- observers class alias -->
+            <method>loadCsQuoteData</method>  <!-- observer's method to be called -->
+            <args></args> <!-- additional arguments passed to observer -->
+          </sales_quote_load_after_handler>
+        </observers>
+      </sales_quote_load_after>
+	 
+	  <sales_order_save_after> <!-- identifier of the event we want to catch -->
+        <observers>
+          <sales_order_save_after_handler> <!-- identifier of the event handler -->
+            <type>singleton</type> <!-- class method call type; valid are model, object and singleton -->
+            <class>deliverycomment/observer</class> <!-- observers class alias -->
+            <method>saveCsOrderData</method>  <!-- observer's method to be called -->
+            <args></args> <!-- additional arguments passed to observer -->
+          </sales_order_save_after_handler>
+        </observers>
+      </sales_order_save_after>
+	  <sales_quote_save_after> <!-- identifier of the event we want to catch -->
+        <observers>
+          <sales_quote_save_after_handler> <!-- identifier of the event handler -->
+            <type>singleton</type> <!-- class method call type; valid are model, object and singleton -->
+            <class>deliverycomment/observer</class> <!-- observers class alias -->
+            <method>saveCsQuoteData</method>  <!-- observer's method to be called -->
+            <args></args> <!-- additional arguments passed to observer -->
+          </sales_quote_save_after_handler>
+        </observers>
+      </sales_quote_save_after>
+    </events>
+  </frontend>
+  <global>
+    <helpers>
+      <deliverycomment>
+        <class>Netstarter_DeliveryComment_Helper</class>
+      </deliverycomment>
+    </helpers>
+	<blocks>
+	  <deliverycomment>
+		<class>Netstarter_DeliveryComment_Block</class>
+	  </deliverycomment>
+			<adminhtml>
+				<rewrite>
+					<sales_order_view_info>Netstarter_DeliveryComment_Block_Adminhtml_Sales_Order_View_Info</sales_order_view_info>
+				</rewrite>
+			</adminhtml>
+	</blocks>
+	<models>
+	  <deliverycomment>
+		<class>Netstarter_DeliveryComment_Model</class>
+		<resourceModel>deliverycomment_mysql4</resourceModel>
+	  </deliverycomment>
+	  <deliverycomment_mysql4>
+		<class>Netstarter_DeliveryComment_Model_Mysql4</class>
+		<entities>		  
+			  <order>
+				<table>netstarter_sales_order</table>
+			  </order>		  
+			  <quote>
+				<table>netstarter_sales_quote</table>
+			  </quote>
+        </entities>
+	  </deliverycomment_mysql4>
+	</models>
+	<resources>
+	  <deliverycomment_setup>
+		<setup>
+		  <module>Netstarter_DeliveryComment</module>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </deliverycomment_setup>
+	  <deliverycomment_write>
+		<connection>
+		  <use>core_write</use>
+		</connection>
+	  </deliverycomment_write>
+	  <deliverycomment_read>
+		<connection>
+		  <use>core_read</use>
+		</connection>
+	  </deliverycomment_read>
+	</resources>
+    <events>
+	  <sales_order_load_after> <!-- identifier of the event we want to catch -->
+        <observers>
+          <sales_order_load_after_handler> <!-- identifier of the event handler -->
+            <type>singleton</type> <!-- class method call type; valid are model, object and singleton -->
+            <class>deliverycomment/observer</class> <!-- observers class alias -->
+            <method>loadCsOrderData</method>  <!-- observer's method to be called -->
+            <args></args> <!-- additional arguments passed to observer -->
+          </sales_order_load_after_handler>
+        </observers>
+      </sales_order_load_after>
+    </events>
+  </global>
+  <adminhtml>
+	<acl>
+	  <resources>
+		<all>
+		  <title>Allow Everything</title>
+		</all>
+		<admin>
+		  <children>
+			<deliverycomment translate="title" module="deliverycomment">
+			  <title>DeliveryComment</title>
+			  <sort_order>1000</sort_order>
+			  <children>
+		  <deliverycommentbackend translate="title">
+			<title>Backend Page Title</title>
+		  </deliverycommentbackend>
+			  </children>
+			</deliverycomment>
+		  </children>
+		</admin>
+	  </resources>
+	</acl>
+	<events>
+		<core_block_abstract_to_html_before>
+			<observers>
+				<core_block_abstract_to_html_before_handler>
+					<type>singleton</type>
+					<class>deliverycomment/observer</class>
+					<method>beforeBlockToHtml</method>
+				</core_block_abstract_to_html_before_handler>
+			</observers>
+		</core_block_abstract_to_html_before>
+		<core_collection_abstract_load_before>
+			<observers>
+				<eav_collection_abstract_load_before_handler>
+					<type>singleton</type>
+					<class>deliverycomment/observer</class>
+					<method>beforeCollectionLoad</method>
+				</eav_collection_abstract_load_before_handler>
+			</observers>
+		</core_collection_abstract_load_before>
+	</events>
+
+	<layout>
+	  <updates>
+		<deliverycomment>
+		  <file>deliverycomment.xml</file>
+		</deliverycomment>
+	  </updates>
+	</layout>
+  </adminhtml>
+</config> 

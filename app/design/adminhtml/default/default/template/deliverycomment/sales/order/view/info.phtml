@@ -1,0 +1,22 @@
+<div style="clear:both">
+<?php
+    $blocks = $this->getSortedChildren();
+    $blocksCount = count($blocks);
+    $i = 0;
+    foreach ($blocks as $block_name): if($content = trim($this->getChildHtml($block_name))): ?>
+
+    <?php if(strpos($block_name, 'customercomment') !== false):?>
+    <div class="box-right">
+        <?php echo $content; ?>
+    </div>
+    <?php endif; ?>
+    <?php if(strpos($block_name, 'deliverydate') !== false):?>
+    <div class="box-left">
+        <?php echo $content; ?>
+    </div>
+    <?php endif; ?>
+
+        <?php $i++; if($i%2==0 || $i == $blocksCount):?><div class="clear"></div><?php endif;?>
+
+    <?php endif; endforeach; ?>
+</div>
